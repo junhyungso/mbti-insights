@@ -1,3 +1,6 @@
+'use client';
+
+import { Header } from '@/components/Header/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Brain, Heart, TrendingUp, Users } from 'lucide-react';
@@ -6,7 +9,7 @@ interface HomePageProps {
   onNavigate: (tab: string) => void;
 }
 
-export function HomePage({ onNavigate }: HomePageProps) {
+export default function HomePage({ onNavigate }: HomePageProps) {
   const features = [
     {
       icon: Brain,
@@ -35,6 +38,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <div className='min-h-[calc(100vh-64px)]'>
       {/* Hero Section */}
+      <Header currentTab='' onTabChange={onNavigate} />
       <section className='bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 text-white py-20 px-4'>
         <div className='container mx-auto text-center max-w-4xl'>
           <h1 className='text-5xl md:text-6xl font-bold mb-6'>
