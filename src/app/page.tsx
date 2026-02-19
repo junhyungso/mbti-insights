@@ -49,8 +49,8 @@ export default function HomePage() {
     },
   ];
 
-  const [type1, setType1] = useState<string>('');
-  const [type2, setType2] = useState<string>('');
+  const [type1, setType1] = useState('');
+  const [type2, setType2] = useState('');
 
   const compatibility = type1 && type2 ? getCompatibility(type1, type2) : null;
   const mbtiType1 = type1 ? getMBTIType(type1) : null;
@@ -73,7 +73,7 @@ export default function HomePage() {
   return (
     <div className='min-h-[calc(100vh-64px)]'>
       {/* Hero Section */}
-      <Header currentTab='compatibility' />
+      <Header currentTab='' />
 
       <div className='container mx-auto px-4 py-8 max-w-7xl'>
         <div className='mb-8'>

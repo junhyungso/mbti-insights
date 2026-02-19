@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ currentTab }: HeaderProps) {
   const tabs = [
-    { id: 'compatibility', label: 'Compatibility' },
+    { id: '', label: 'Compatibility' },
     { id: 'types', label: 'All Types' },
     { id: 'about', label: 'About MBTI' },
   ];

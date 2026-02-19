@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select';
 import { categories, mbtiTypes } from '@/data/mbtiData';
 import { Filter, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function AllTypes() {
@@ -30,6 +31,8 @@ export default function AllTypes() {
 
     return matchesSearch && matchesCategory;
   });
+
+  const router = useRouter();
 
   return (
     <>
@@ -107,6 +110,7 @@ export default function AllTypes() {
             <Card
               key={type.code}
               className='hover:shadow-lg transition-shadow border-2'
+              onClick={() => router.push(`/types/${type.code}`)}
             >
               <CardHeader>
                 <div className='flex items-start justify-between mb-2'>
