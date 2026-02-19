@@ -2,7 +2,7 @@
 
 import { Header } from '@/components/Header/Header';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -76,32 +76,12 @@ export default function AllTypes() {
         </div>
 
         {/* Categories Overview */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8'>
-          {Object.entries(categories).map(([name, data]) => (
-            <Card
-              key={name}
-              className={`cursor-pointer transition-all ${
-                categoryFilter === name ? 'ring-2 ring-purple-500' : ''
-              }`}
-              onClick={() =>
-                setCategoryFilter(categoryFilter === name ? 'all' : name)
-              }
-            >
-              <CardHeader className='pb-3'>
-                <CardTitle className='text-lg'>{name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className='text-sm text-gray-600 mb-3'>{data.description}</p>
-                <div className='flex flex-wrap gap-1'>
-                  {data.types.map((type) => (
-                    <Badge key={type} variant='outline' className='text-xs'>
-                      {type}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className='flex justify-center mb-8'>
+          <p className='text-gray-600'>
+            Click on any type card to view detailed information about that
+            personality type, including career suggestions, compatibility, and
+            more.
+          </p>
         </div>
 
         {/* Types Grid */}
