@@ -105,7 +105,7 @@ export default function HomePage() {
         <div className='grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start'>
           <div className='space-y-8'>
             {/* Type Selectors */}
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 items-start'>
+            <div className='grid grid-cols-1 md:grid-cols-2 items-start'>
               <Card className='w-80 shrink-0'>
                 <CardHeader>
                   <CardTitle className='flex items-center gap-2'>
@@ -181,7 +181,9 @@ export default function HomePage() {
             {compatibility && type1 && type2 && (
               <div className='space-y-6'>
                 {/* Overall Rating */}
-                <Card className='sticky top-24 h-fit border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50'>
+                <Card
+                  className={` top-24 h-fit border ${getRatingColor(compatibility.rating)}`}
+                >
                   <CardHeader>
                     <CardTitle className='flex items-center gap-2'>
                       <Heart className='h-6 w-6' />
@@ -338,7 +340,7 @@ export default function HomePage() {
                 Fun Fact of the Day
               </CardTitle>
             </CardHeader>
-            <CardContent className='py-4'>
+            <CardContent>
               <div className='flex items-start gap-2 mb-3'>
                 <Calendar className='h-4 w-4 text-purple-600 mt-1 flex-shrink-0' />
                 <p className='text-sm text-purple-600 font-medium'>

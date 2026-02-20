@@ -152,7 +152,7 @@ export const mbtiTypes: MBTIType[] = [
     strengths: ['Dedicated', 'Strong-willed', 'Direct', 'Honest'],
     weaknesses: [
       'Inflexible',
-      'Uncomfortable with unconventional situations',
+      'Averse to novelty',
       'Judgmental',
       'Too focused on social status',
     ],
