@@ -4,7 +4,9 @@ import { Header } from '@/components/Header/Header';
 import {
   AlertCircle,
   Brain,
+  Calendar,
   Heart,
+  Sparkles,
   Star,
   TrendingUp,
   Users,
@@ -20,7 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { getCompatibility, getMBTIType, mbtiTypes } from '@/data/mbtiData';
+import {
+  funFacts,
+  getCompatibility,
+  getMBTIType,
+  mbtiTypes,
+} from '@/data/mbtiData';
 import { useState } from 'react';
 
 export default function HomePage() {
@@ -70,6 +77,17 @@ export default function HomePage() {
     return 'Very Challenging';
   };
 
+  function getDailyFact(): string {
+    const today = new Date();
+    // Create a seed based on the date (year, month, day)
+    const seed =
+      today.getFullYear() * 10000 +
+      (today.getMonth() + 1) * 100 +
+      today.getDate();
+    const index = seed % funFacts.length;
+    return funFacts[index];
+  }
+
   return (
     <div className='min-h-[calc(100vh-64px)]'>
       {/* Hero Section */}
@@ -84,240 +102,262 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Type Selectors */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
-          <Card>
-            <CardHeader>
-              <CardTitle className='flex items-center gap-2'>
-                <Users className='h-5 w-5' />
-                First Type
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Select value={type1} onValueChange={setType1}>
-                <SelectTrigger>
-                  <SelectValue placeholder='Select a type...' />
-                </SelectTrigger>
-                <SelectContent className='bg-white z-50'>
-                  {mbtiTypes.map((type) => (
-                    <SelectItem key={type.code} value={type.code}>
-                      {type.code} - {type.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {mbtiType1 && (
-                <div className='mt-4'>
-                  <Badge
-                    style={{ backgroundColor: mbtiType1.color }}
-                    className='text-white mb-2'
-                  >
-                    {mbtiType1.category}
-                  </Badge>
-                  <p className='text-sm text-gray-600'>
-                    {mbtiType1.description}
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+        <div className='grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start'>
+          <div className='space-y-8'>
+            {/* Type Selectors */}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 items-start'>
+              <Card className='w-80 shrink-0'>
+                <CardHeader>
+                  <CardTitle className='flex items-center gap-2'>
+                    <Users className='h-5 w-5' />
+                    First Type
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Select value={type1} onValueChange={setType1}>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Select a type...' />
+                    </SelectTrigger>
+                    <SelectContent className='bg-white z-50'>
+                      {mbtiTypes.map((type) => (
+                        <SelectItem key={type.code} value={type.code}>
+                          {type.code} - {type.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {mbtiType1 && (
+                    <div className='mt-4'>
+                      <Badge
+                        style={{ backgroundColor: mbtiType1.color }}
+                        className='text-white mb-2'
+                      >
+                        {mbtiType1.category}
+                      </Badge>
+                      <p className='text-sm text-gray-600'>
+                        {mbtiType1.description}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+              <Card className='w-80 shrink-0'>
+                <CardHeader>
+                  <CardTitle className='flex items-center gap-2'>
+                    <Users className='h-5 w-5' />
+                    Second Type
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Select value={type2} onValueChange={setType2}>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Select a type...' />
+                    </SelectTrigger>
+                    <SelectContent className='bg-white z-50'>
+                      {mbtiTypes.map((type) => (
+                        <SelectItem key={type.code} value={type.code}>
+                          {type.code} - {type.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {mbtiType2 && (
+                    <div className='mt-4'>
+                      <Badge
+                        style={{ backgroundColor: mbtiType2.color }}
+                        className='text-white mb-2'
+                      >
+                        {mbtiType2.category}
+                      </Badge>
+                      <p className='text-sm text-gray-600'>
+                        {mbtiType2.description}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+            {/* Compatibility Results */}
+            {compatibility && type1 && type2 && (
+              <div className='space-y-6'>
+                {/* Overall Rating */}
+                <Card className='sticky top-24 h-fit border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50'>
+                  <CardHeader>
+                    <CardTitle className='flex items-center gap-2'>
+                      <Heart className='h-6 w-6' />
+                      Compatibility Rating
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className='flex items-center gap-4 mb-4'>
+                      <div className='text-5xl font-bold'>
+                        {compatibility.rating}/5
+                      </div>
+                      <div>
+                        <div className='text-xl font-semibold mb-1'>
+                          {getRatingLabel(compatibility.rating)}
+                        </div>
+                        <div className='flex gap-1'>
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-5 w-5 ${
+                                i < compatibility.rating
+                                  ? 'fill-yellow-400 text-yellow-400'
+                                  : 'text-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <p className='text-lg'>{compatibility.description}</p>
+                  </CardContent>
+                </Card>
 
-          <Card>
+                {/* Type Details Side by Side */}
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  {mbtiType1 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className='flex items-center gap-2'>
+                          <TrendingUp className='h-5 w-5' />
+                          {mbtiType1.code} Strengths & Weaknesses
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className='mb-4'>
+                          <h4 className='font-semibold text-green-700 mb-2'>
+                            Strengths
+                          </h4>
+                          <ul className='space-y-1'>
+                            {mbtiType1.strengths.map((strength, idx) => (
+                              <li
+                                key={idx}
+                                className='text-sm flex items-start gap-2'
+                              >
+                                <span className='text-green-600 mt-1'>•</span>
+                                {strength}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className='font-semibold text-orange-700 mb-2'>
+                            Weaknesses
+                          </h4>
+                          <ul className='space-y-1'>
+                            {mbtiType1.weaknesses.map((weakness, idx) => (
+                              <li
+                                key={idx}
+                                className='text-sm flex items-start gap-2'
+                              >
+                                <span className='text-orange-600 mt-1'>•</span>
+                                {weakness}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {mbtiType2 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className='flex items-center gap-2'>
+                          <TrendingUp className='h-5 w-5' />
+                          {mbtiType2.code} Strengths & Weaknesses
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className='mb-4'>
+                          <h4 className='font-semibold text-green-700 mb-2'>
+                            Strengths
+                          </h4>
+                          <ul className='space-y-1'>
+                            {mbtiType2.strengths.map((strength, idx) => (
+                              <li
+                                key={idx}
+                                className='text-sm flex items-start gap-2'
+                              >
+                                <span className='text-green-600 mt-1'>•</span>
+                                {strength}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className='font-semibold text-orange-700 mb-2'>
+                            Weaknesses
+                          </h4>
+                          <ul className='space-y-1'>
+                            {mbtiType2.weaknesses.map((weakness, idx) => (
+                              <li
+                                key={idx}
+                                className='text-sm flex items-start gap-2'
+                              >
+                                <span className='text-orange-600 mt-1'>•</span>
+                                {weakness}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+
+                {/* Tips */}
+                <Alert>
+                  <AlertCircle className='h-4 w-4' />
+                  <AlertDescription>
+                    Remember: MBTI compatibility is just one factor in
+                    relationships. Communication, mutual respect, and shared
+                    values are equally important for any successful partnership.
+                  </AlertDescription>
+                </Alert>
+              </div>
+            )}
+            {!type1 || !type2 ? (
+              <Card className='border-dashed'>
+                <CardContent className='py-12 text-center text-gray-500'>
+                  <Users className='h-12 w-12 mx-auto mb-4 text-gray-400' />
+                  <p>
+                    Select two MBTI types above to see their compatibility
+                    analysis
+                  </p>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+          <Card className='w-80 shrink-0 self-start border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50'>
             <CardHeader>
-              <CardTitle className='flex items-center gap-2'>
-                <Users className='h-5 w-5' />
-                Second Type
+              <CardTitle className='flex items-center gap-2 text-purple-700'>
+                <Sparkles className='h-5 w-5' />
+                Fun Fact of the Day
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <Select value={type2} onValueChange={setType2}>
-                <SelectTrigger>
-                  <SelectValue placeholder='Select a type...' />
-                </SelectTrigger>
-                <SelectContent className='bg-white z-50'>
-                  {mbtiTypes.map((type) => (
-                    <SelectItem key={type.code} value={type.code}>
-                      {type.code} - {type.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {mbtiType2 && (
-                <div className='mt-4'>
-                  <Badge
-                    style={{ backgroundColor: mbtiType2.color }}
-                    className='text-white mb-2'
-                  >
-                    {mbtiType2.category}
-                  </Badge>
-                  <p className='text-sm text-gray-600'>
-                    {mbtiType2.description}
-                  </p>
-                </div>
-              )}
+            <CardContent className='py-4'>
+              <div className='flex items-start gap-2 mb-3'>
+                <Calendar className='h-4 w-4 text-purple-600 mt-1 flex-shrink-0' />
+                <p className='text-sm text-purple-600 font-medium'>
+                  {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+              </div>
+              <p className='text-gray-700 leading-relaxed'>{getDailyFact()}</p>
             </CardContent>
           </Card>
         </div>
-
-        {/* Compatibility Results */}
-        {compatibility && type1 && type2 && (
-          <div className='space-y-6'>
-            {/* Overall Rating */}
-            <Card
-              className={`border-2 ${getRatingColor(compatibility.rating)}`}
-            >
-              <CardHeader>
-                <CardTitle className='flex items-center gap-2'>
-                  <Heart className='h-6 w-6' />
-                  Compatibility Rating
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className='flex items-center gap-4 mb-4'>
-                  <div className='text-5xl font-bold'>
-                    {compatibility.rating}/5
-                  </div>
-                  <div>
-                    <div className='text-xl font-semibold mb-1'>
-                      {getRatingLabel(compatibility.rating)}
-                    </div>
-                    <div className='flex gap-1'>
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-5 w-5 ${
-                            i < compatibility.rating
-                              ? 'fill-yellow-400 text-yellow-400'
-                              : 'text-gray-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className='text-lg'>{compatibility.description}</p>
-              </CardContent>
-            </Card>
-
-            {/* Type Details Side by Side */}
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              {mbtiType1 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className='flex items-center gap-2'>
-                      <TrendingUp className='h-5 w-5' />
-                      {mbtiType1.code} Strengths & Weaknesses
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className='mb-4'>
-                      <h4 className='font-semibold text-green-700 mb-2'>
-                        Strengths
-                      </h4>
-                      <ul className='space-y-1'>
-                        {mbtiType1.strengths.map((strength, idx) => (
-                          <li
-                            key={idx}
-                            className='text-sm flex items-start gap-2'
-                          >
-                            <span className='text-green-600 mt-1'>•</span>
-                            {strength}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className='font-semibold text-orange-700 mb-2'>
-                        Weaknesses
-                      </h4>
-                      <ul className='space-y-1'>
-                        {mbtiType1.weaknesses.map((weakness, idx) => (
-                          <li
-                            key={idx}
-                            className='text-sm flex items-start gap-2'
-                          >
-                            <span className='text-orange-600 mt-1'>•</span>
-                            {weakness}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {mbtiType2 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className='flex items-center gap-2'>
-                      <TrendingUp className='h-5 w-5' />
-                      {mbtiType2.code} Strengths & Weaknesses
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className='mb-4'>
-                      <h4 className='font-semibold text-green-700 mb-2'>
-                        Strengths
-                      </h4>
-                      <ul className='space-y-1'>
-                        {mbtiType2.strengths.map((strength, idx) => (
-                          <li
-                            key={idx}
-                            className='text-sm flex items-start gap-2'
-                          >
-                            <span className='text-green-600 mt-1'>•</span>
-                            {strength}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className='font-semibold text-orange-700 mb-2'>
-                        Weaknesses
-                      </h4>
-                      <ul className='space-y-1'>
-                        {mbtiType2.weaknesses.map((weakness, idx) => (
-                          <li
-                            key={idx}
-                            className='text-sm flex items-start gap-2'
-                          >
-                            <span className='text-orange-600 mt-1'>•</span>
-                            {weakness}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Tips */}
-            <Alert>
-              <AlertCircle className='h-4 w-4' />
-              <AlertDescription>
-                Remember: MBTI compatibility is just one factor in
-                relationships. Communication, mutual respect, and shared values
-                are equally important for any successful partnership.
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
-
-        {!type1 || !type2 ? (
-          <Card className='border-dashed'>
-            <CardContent className='py-12 text-center text-gray-500'>
-              <Users className='h-12 w-12 mx-auto mb-4 text-gray-400' />
-              <p>
-                Select two MBTI types above to see their compatibility analysis
-              </p>
-            </CardContent>
-          </Card>
-        ) : null}
       </div>
 
       {/* Features Section */}
-      <section className='py-16 px-4 bg-gray-50'>
+      <section className='py-16 px-4 '>
         <div className='container mx-auto max-w-6xl'>
           <h2 className='text-3xl md:text-4xl font-bold text-center mb-12'>
             Why Use MBTI Match?

@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
@@ -24,14 +25,18 @@ export function Header({ currentTab }: HeaderProps) {
             className='flex items-center gap-2 cursor-pointer'
             onClick={() => router.push('/')}
           >
-            <div className='w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold'>
-              MB
+            <div className='mt-2'>
+              <Image
+                src='/MatchLogo.png'
+                alt='MBTI Logo'
+                width={300}
+                height={50}
+              />
             </div>
-            <h1 className='font-bold text-xl'>MBTI Match</h1>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className='hidden  md:flex gap-1'>
+          <nav className='hidden md:flex gap-1'>
             {tabs.map((tab) => (
               <Button
                 key={tab.id}

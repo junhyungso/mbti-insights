@@ -89,7 +89,7 @@ export default function AllTypes() {
           {filteredTypes.map((type) => (
             <Card
               key={type.code}
-              className='hover:shadow-lg transition-shadow border-2'
+              className='hover:shadow-lg transition-shadow border-2 cursor-pointer'
               onClick={() => router.push(`/types/${type.code}`)}
             >
               <CardHeader>

@@ -600,3 +600,37 @@ export function getCompatibility(
 export function getMBTIType(code: string): MBTIType | undefined {
   return mbtiTypes.find((type) => type.code === code);
 }
+
+export const funFacts = [
+  'The MBTI was developed during World War II to help women entering the industrial workforce for the first time.',
+  'INFJ is the rarest personality type, making up only 1-2% of the population.',
+  'Extraverts make up about 50-74% of the U.S. population, slightly outnumbering introverts.',
+  'The MBTI is available in 29 languages and is used in 70+ countries worldwide.',
+  "Carl Jung's theory of psychological types (1921) inspired the creation of the MBTI.",
+  'ENTJ and ESTJ types are most likely to earn six-figure salaries.',
+  'About 75% of people have a preference for Sensing over Intuition.',
+  'The four-letter type code was introduced by Isabel Briggs Myers and her mother.',
+  'MBTI results can remain consistent over many years, though preferences may shift with major life changes.',
+  'Over 2 million people take the MBTI assessment each year.',
+  "The 'J' and 'P' dichotomy was Isabel Myers' unique addition to Jung's original theory.",
+  'ISTJ is the most common personality type among men.',
+  'Thinking types tend to excel in careers requiring logical analysis and objectivity.',
+  "ENFP types are often called 'The Campaigners' due to their enthusiasm and creativity.",
+  'About 60% of the population prefers Judging over Perceiving.',
+  'The MBTI can help identify communication styles and potential sources of conflict in teams.',
+  'Intuitive types are more likely to enjoy abstract conversations and theoretical discussions.',
+  'MBTI type preferences are believed to be innate and present from birth.',
+  'Feeling types make up about 60% of women and 40% of men.',
+  'Each personality type has unique stress triggers and coping mechanisms.',
+  "The MBTI doesn't measure skills, abilities, or mental health—only preferences.",
+  'ISTP types are often drawn to hands-on problem-solving and technical challenges.',
+  'Personality type can influence career satisfaction more than salary level.',
+  'ENFJ types are natural mentors and often pursue careers in teaching or counseling.',
+  'The most compatible types often have complementary rather than identical preferences.',
+  'Introverts typically need alone time to recharge, while extraverts gain energy from social interaction.',
+  'MBTI assessments focus on healthy personality expression, not pathology.',
+  'ESTP types are known for their love of action and living in the moment.',
+  'Understanding your MBTI type can improve self-awareness and personal development.',
+  'Type preferences exist on a continuum—some people have strong preferences, others mild ones.',
+  'The MBTI has been used by 89 of the Fortune 100 companies for team building and development.',
+];
