@@ -1,6 +1,5 @@
 'use client';
 
-import { Header } from '@/components/Header/Header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -36,7 +35,6 @@ export default function AllTypes() {
 
   return (
     <>
-      <Header currentTab='types' />
       <div className='container mx-auto px-4 py-8 max-w-7xl'>
         <div className='mb-8'>
           <h1 className='text-4xl font-bold mb-2'>All MBTI Types</h1>

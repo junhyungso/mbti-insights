@@ -1,6 +1,5 @@
 'use client';
 
-import { Header } from '@/components/Header/Header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -36,7 +35,6 @@ export default function TypeProfile() {
 
   return (
     <>
-      <Header currentTab='types' />
       <div className='container mx-auto px-4 py-8 max-w-7xl'>
         <div className='mb-8'>
           <h1 className='text-4xl font-bold mb-2'>Type Profile</h1>

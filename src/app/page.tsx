@@ -1,6 +1,5 @@
 'use client';
 
-import { Header } from '@/components/Header/Header';
 import {
   AlertCircle,
   Brain,
@@ -91,7 +90,6 @@ export default function HomePage() {
   return (
     <div className='min-h-[calc(100vh-64px)]'>
       {/* Hero Section */}
-      <Header currentTab='' />
 
       <div className='container mx-auto px-4 py-8 max-w-7xl'>
         <div className='mb-8'>
@@ -321,7 +319,7 @@ export default function HomePage() {
                 </Alert>
               </div>
             )}
-            {!type1 || !type2 ? (
+            {/* {!type1 || !type2 ? (
               <Card className='border-dashed'>
                 <CardContent className='py-12 text-center text-gray-500'>
                   <Users className='h-12 w-12 mx-auto mb-4 text-gray-400' />
@@ -331,7 +329,7 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-            ) : null}
+            ) : null} */}
           </div>
           <Card className='w-80 shrink-0 self-start border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50'>
             <CardHeader>

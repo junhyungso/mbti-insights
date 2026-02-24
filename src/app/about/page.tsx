@@ -1,6 +1,5 @@
 'use client';
 
-import { Header } from '@/components/Header/Header';
 import {
   Accordion,
   AccordionContent,
@@ -40,7 +39,6 @@ export default function AboutPage() {
 
   return (
     <>
-      <Header currentTab='about' />
       <div className='container mx-auto px-4 py-8 max-w-5xl'>
         <div className='mb-12 text-center'>
           <h1 className='text-4xl font-bold mb-4'>About MBTI</h1>

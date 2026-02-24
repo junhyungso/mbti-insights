@@ -1,14 +1,14 @@
+'use client';
+
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 
-interface HeaderProps {
-  currentTab: string;
-}
-
-export function Header({ currentTab }: HeaderProps) {
+export function Header() {
+  const pathname = usePathname();
+  console.log('Current pathname:', pathname);
   const tabs = [
     { id: '', label: 'Compatibility' },
     { id: 'types', label: 'All Types' },
@@ -37,16 +37,23 @@ export function Header({ currentTab }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className='hidden md:flex gap-1'>
-            {tabs.map((tab) => (
-              <Button
-                key={tab.id}
-                variant={currentTab === tab.id ? 'default' : 'ghost'}
-                onClick={() => router.push(`/${tab.id}`)}
-                className='cursor-pointer'
-              >
-                {tab.label}
-              </Button>
-            ))}
+            {tabs.map((tab) => {
+              const isActive =
+                tab.id === ''
+                  ? pathname === '/'
+                  : pathname.startsWith(`/${tab.id}`);
+
+              return (
+                <Button
+                  key={tab.id}
+                  variant={isActive ? 'default' : 'ghost'}
+                  onClick={() => router.push(`/${tab.id}`)}
+                  className='cursor-pointer'
+                >
+                  {tab.label}
+                </Button>
+              );
+            })}
           </nav>
 
           {/* Mobile Navigation */}
@@ -58,16 +65,23 @@ export function Header({ currentTab }: HeaderProps) {
             </SheetTrigger>
             <SheetContent>
               <nav className='flex flex-col gap-2 mt-8'>
-                {tabs.map((tab) => (
-                  <Button
-                    key={tab.id}
-                    variant={currentTab === tab.id ? 'default' : 'ghost'}
-                    onClick={() => router.push(`/${tab.id}`)}
-                    className='justify-start'
-                  >
-                    {tab.label}
-                  </Button>
-                ))}
+                {tabs.map((tab) => {
+                  const isActive =
+                    tab.id === ''
+                      ? pathname === '/'
+                      : pathname.startsWith(`/${tab.id}`);
+
+                  return (
+                    <Button
+                      key={tab.id}
+                      variant={isActive ? 'default' : 'ghost'}
+                      onClick={() => router.push(`/${tab.id}`)}
+                      className='cursor-pointer'
+                    >
+                      {tab.label}
+                    </Button>
+                  );
+                })}
               </nav>
             </SheetContent>
           </Sheet>
