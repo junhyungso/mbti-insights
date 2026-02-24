@@ -7,8 +7,6 @@ import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 
 export function Header() {
-  const pathname = usePathname();
-  console.log('Current pathname:', pathname);
   const tabs = [
     { id: '', label: 'Compatibility' },
     { id: 'types', label: 'All Types' },
@@ -16,6 +14,7 @@ export function Header() {
   ];
 
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <header className='border-b bg-white sticky top-0 z-50'>
